@@ -1,0 +1,60 @@
+def can_abhimanyu_cross_chakravyuha(p, k, a, b):
+    current_power = p
+    skip_count = a
+    recharge_count = b
+    
+    
+    k3_power = k[2] // 2
+    k7_power = k[6] // 2
+    back_attacked_k3 = False
+    back_attacked_k7 = False
+    
+    for i in range(11):
+      
+        if current_power < k[i]:
+            
+            if skip_count > 0:
+                skip_count -= 1
+                continue
+            
+            elif recharge_count > 0:
+                current_power = p
+                recharge_count -= 1
+            else:
+                return "Abhimanyu fails"
+        
+        
+        current_power -= k[i]
+        
+      
+        if i == 3 and not back_attacked_k3:
+            if current_power < k3_power:
+                return "Abhimanyu fails"
+            current_power -= k3_power
+            back_attacked_k3 = True
+        
+        
+        if i == 7 and not back_attacked_k7:
+            if current_power < k7_power:
+                return "Abhimanyu fails"
+            current_power -= k7_power
+            back_attacked_k7 = True
+    
+    
+    return "Abhimanyu survives"
+
+
+# Test cases
+k1 = [5, 10, 8, 7, 6, 15, 20, 12, 25, 18, 10]
+p1 = 30
+a1 = 2
+b1 = 1
+result1 = can_abhimanyu_cross_chakravyuha(p1, k1, a1, b1)
+
+k2 = [10, 15, 8, 7, 6, 15, 20, 12, 25, 18, 25]
+p2 = 25
+a2 = 1
+b2 = 2
+result2 = can_abhimanyu_cross_chakravyuha(p2, k2, a2, b2)
+
+result1, result2
